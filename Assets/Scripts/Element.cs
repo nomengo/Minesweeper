@@ -11,6 +11,7 @@ public class Element : MonoBehaviour
     [Header("Textures")]
     public Sprite[] emptySprites;
     public Sprite mineSprite;
+    public Sprite flagSprite;
     
     void Start()
     {
@@ -26,13 +27,15 @@ public class Element : MonoBehaviour
     //Click to a element
     void OnMouseUpAsButton()
     {
-
-        //If it's a mine
-        if (isMine)
+        //If boolean variable is true 
+        if (UI.isFlagSelected)
         {
-            //Play the sound
-            isFailed = true;
-
+            LoadTextures(0);
+            UI.isFlagSelected = false;
+        }
+        //Boolean variable is false and if isMine is true
+        else if (isMine)
+        {
             //Uncover all mines
             PlayField.UncoverMines();
 
@@ -42,7 +45,6 @@ public class Element : MonoBehaviour
         //If it's not a mine
         else
         {
-            notMine = true;
             //Show adjacent mine number
             int x = (int)transform.position.x;
             int y = (int)transform.position.y;
@@ -64,6 +66,10 @@ public class Element : MonoBehaviour
         if (isMine)
         {
             GetComponent<SpriteRenderer>().sprite = mineSprite;
+        }
+        else if (UI.isFlagSelected)
+        {
+            GetComponent<SpriteRenderer>().sprite = flagSprite;
         }
         else
         {

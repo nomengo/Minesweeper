@@ -3,37 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayField : MonoBehaviour
-{
-    [Header("Sounds")]
-    public AudioClip EmptyElementSurroundedWithMinesSound;
-    public AudioClip EmptyElementsSound;
-    public AudioClip PressedToMineSound;
-
-    public static AudioSource audioSource;
-
+{ 
 
     [Header("The Grid")]
     public static int width = 10;
     public static int height = 13;
     public static Element[,] elements = new Element[width, height];
-
-    void Awake()
-    {
-        audioSource = transform.GetComponent<AudioSource>();
-    }
-
-     void Update()
-     {
-        if (FindObjectOfType<Element>().notMine)
-        {
-            audioSource.PlayOneShot(EmptyElementSurroundedWithMinesSound);
-        }
-
-        if (FindObjectOfType<Element>().isFailed)
-        {
-            audioSource.PlayOneShot(PressedToMineSound);
-        }
-     }
 
     public static void UncoverMines()
     {
